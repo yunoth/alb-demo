@@ -9,7 +9,7 @@
 
    - name: creating index file
      copy:
-        content: "Hello world"
+        content: "Welcome to Yunoth's Demo"
         dest: /var/www/html/index.html
         force: no
         group: apache
