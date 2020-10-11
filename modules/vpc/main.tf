@@ -51,7 +51,7 @@ resource "aws_nat_gateway" "ngw" {
   tags = var.vpc_tags
 }
 
-resource "aws_route_table" "r" {
+resource "aws_route_table" "r-private" {
   vpc_id = aws_vpc.main.id
 
   route {
