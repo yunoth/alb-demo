@@ -41,31 +41,31 @@ resource "aws_main_route_table_association" "a" {
   route_table_id = aws_route_table.r.id
 }
 
-# resource "aws_eip" "nat" {
-#   vpc      = true
-# }
+resource "aws_eip" "nat" {
+  vpc      = true
+}
 
-# resource "aws_nat_gateway" "ngw" {
-#   allocation_id = aws_eip.nat.id
-#   subnet_id     = aws_subnet.public_subnet.0.id
-#   tags = var.vpc_tags
-# }
+resource "aws_nat_gateway" "ngw" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.public_subnet.0.id
+  tags = var.vpc_tags
+}
 
-# resource "aws_route_table" "r" {
-#   vpc_id = aws_vpc.main.id
+resource "aws_route_table" "r" {
+  vpc_id = aws_vpc.main.id
 
-#   route {
-#     cidr_block = "0.0.0.0/0"
-#     nat_gateway_id = aws_nat_gateway.ngw.id
-#   }
-#   tags = var.vpc_tags
-# }
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.ngw.id
+  }
+  tags = var.vpc_tags
+}
 
-# resource "aws_route_table_association" "a" {
-#   count = length(var.private_subnet_cidr)
-#   subnet_id      = element(aws_subnet.private_subnet.*.id, count.index)
-#   route_table_id = aws_route_table.r.id
-# }
+resource "aws_route_table_association" "a" {
+  count = length(var.private_subnet_cidr)
+  subnet_id      = element(aws_subnet.private_subnet.*.id, count.index)
+  route_table_id = aws_route_table.r.id
+}
 
 
 #--------------------------------------------------#
